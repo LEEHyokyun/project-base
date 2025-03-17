@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="fragments/common :: head('Home')">
+  <head th:replace="fragments/common :: head('게시판')">
   </head>
   <body>
 	<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -54,15 +54,13 @@
 	      </ul>
 	    </div>
 
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4" th:replace="fragments/common :: menu('home')">
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4" th:replace="fragments/common :: menu('board')">
 	</nav>
 
-	<main class="container">
-	  <div class="bg-body-tertiary p-5 rounded">
-	    <h1>Base Project For Init</h1>
-	    <p class="lead">프로젝트 구성 시 기초 구성을 위해 사용하십시오.</p>
-	  </div>
-	</main>
+	<div class="bg-body-tertiary p-5 rounded">
+	  <h2>게시판</h2>
+	  <p class="lead">게시판 구성을 위해 사용하십시오.</p>
+	</div>
 	
 	<!-- Optional JavaScript -->
 	<!-- popper/bootstrap-->

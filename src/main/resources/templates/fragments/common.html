@@ -1,8 +1,16 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
+	<head th:fragment="head(title)">
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <title th:text="${title}">Base Thymeleaf Project Init</title>
+	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+		<!-- Custom styles for this template -->
+		<link href="navbar-static.css" rel="stylesheet">
+  	</head>
 	<body>
-		<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4" th:fragment="menu">
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4" th:fragment="menu(prodPosi)">
 			  <div class="container-fluid">
 			    <a class="navbar-brand" href="#">Menu</a>
 			    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,11 +18,11 @@
 			    </button>
 			    <div class="collapse navbar-collapse" id="navbarCollapse">
 			      <ul class="navbar-nav me-auto mb-2 mb-md-0">
-			        <li class="nav-item">
-			          <a class="nav-link active" aria-current="page" href="#">홈</a>
-			        </li>
-			        <li class="nav-item">
-			          <a class="nav-link" href="#">게시판</a>
+					<li class="nav-item">
+          			  <a class="nav-link" href="#" th:href="@{/}" th:classappend="${prodPosi} == 'home'? 'active'">홈<span class="sr-only" th:if="${prodPosi} == 'home'"></span></a>
+					</li>
+			        <li class="nav-item" th:classappend="${prodPosi} == 'board'? 'active'">
+			          <a class="nav-link" href="#" th:href="@{/board/list}" th:classappend="${prodPosi} == 'board'? 'active'">게시판<span class="sr-only" th:if="${prodPosi} == 'board'"></span></a>
 			        </li>
 			      </ul>
 			      <form class="d-flex" role="search">
