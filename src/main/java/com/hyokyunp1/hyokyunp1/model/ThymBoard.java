@@ -10,8 +10,8 @@ import lombok.Data;
 @Data
 public class ThymBoard {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String title;
 	private String content;
 	

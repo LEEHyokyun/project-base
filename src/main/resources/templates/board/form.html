@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="fragments/common :: head('게시판')">
+  <head th:replace="fragments/common :: head('게시판 글쓰기')">
   </head>
   <body>
 	<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -58,29 +58,25 @@
 	</nav>
 
 	<div class="bg-body-tertiary p-5 rounded">
-	  <p class="lead">게시판 구성을 위해 사용하십시오.</p>
-	  <h2>게시판</h2>
-	  <div>총 건수 : <span th:text="${#lists.size(boards)}"></span></div>
-  		<table class="table table-hover">
-  		  <thead>
-  		    <tr>
-  		      <th scope="col">No</th>
-  		      <th scope="col">제목</th>
-  		      <th scope="col">작성자</th>
-  		    </tr>
-  		  </thead>
-  		  <tbody>
-  		    <tr th:each="boardItem : ${boards}">
-			  <!--<input type="hidden" th:field="*{id}">-->
-  		      <td th:text="${boardItem.id}">id</td>
-  		      <td><a th:text="${boardItem.title}" th:href="@{/board/form(id=${boardItem.id})}">title</a></td>
-  		      <td>LEE HYO KYUN</td>
-  		    </tr>
-  		  </tbody>
-  		</table>
-  		<div class="text-md-end">
-  			<a type="button" class="btn btn-primary" th:href=@{/board/form}>글쓰기</a>
-  		</div>
+	  <h2>게시판 글쓰기</h2>
+	  <form action="#" th:action="@{/board/form}" th:object="${board}" method="post">
+		  <div class="input-group flex-nowrap">
+		  	<span class="input-group-text" id="addon-wrapping">번호</span>
+		  	<input type="text" id="id" th:field="*{id}"class="form-control" aria-label="id" aria-describedby="addon-wrapping">
+		  </div>
+		  <div class="input-group flex-nowrap">
+		  	<span class="input-group-text" id="addon-wrapping">제목</span>
+		  	<input type="text" id="title" th:field="*{title}"class="form-control" aria-label="title" aria-describedby="addon-wrapping">
+		  </div>
+		  <div class="input-group">
+			<span class="input-group-text">내용</span>
+			<textarea class="form-control" id="content" th:field="*{content}" aria-label="With textarea"></textarea>
+		  </div>
+		  <div class="text-md-end">
+	  		<a type="button" class="btn btn-primary" th:href=@{/board/list}>취소</a>
+	  		<button type="submit" class="btn btn-primary">확인</button>
+	  	  </div>
+	  </form>
 	</div>
 	
 	<!-- Optional JavaScript -->
