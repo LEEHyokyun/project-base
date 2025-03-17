@@ -58,8 +58,28 @@
 	</nav>
 
 	<div class="bg-body-tertiary p-5 rounded">
-	  <h2>게시판</h2>
 	  <p class="lead">게시판 구성을 위해 사용하십시오.</p>
+	  <h2>게시판</h2>
+	  <div>총 건수 : <span th:text="${#lists.size(boards)}"></span></div>
+  		<table class="table table-hover">
+  		  <thead>
+  		    <tr>
+  		      <th scope="col">No</th>
+  		      <th scope="col">제목</th>
+  		      <th scope="col">작성자</th>
+  		    </tr>
+  		  </thead>
+  		  <tbody>
+  		    <tr th:each="boardItem : ${boards}">
+  		      <td th:text=${boardItem.id}>No</td>
+  		      <td th:text=${boardItem.title}>날씨</td>
+  		      <td>LEE HYO KYUN</td>
+  		    </tr>
+  		  </tbody>
+  		</table>
+  		<div class="text-md-end">
+  			<button type="button" class="btn btn-primary">글쓰기</button>
+  		</div>
 	</div>
 	
 	<!-- Optional JavaScript -->
