@@ -29,13 +29,15 @@ public class BoardController {
 	
 	//page
 	@GetMapping("/list")
-	public String list(Model model, @PageableDefault(size = 2) Pageable pagable) {
+	public String list(Model model, @PageableDefault(size = 2) Pageable pagable, 
+			@RequestParam(required=false, defaultValue = "") String searchText) {
 		
 		//1. get data from repository
 		//List<ThymBoard> board = boardRepository.findAll();
 		
 		//1-2. get pagable data
-		Page<ThymBoard> board = boardRepository.findAll(pagable);
+		//Page<ThymBoard> board = boardRepository.findAll(pagable);
+		Page<ThymBoard> board = boardRepository.findByTitleContainingOrContentContaining(searchText, searchText, pagable);
 		
 		//1-2. check page data
 		//board.getTotalElements();
