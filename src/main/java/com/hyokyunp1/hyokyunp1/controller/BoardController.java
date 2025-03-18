@@ -1,8 +1,10 @@
 package com.hyokyunp1.hyokyunp1.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,13 +29,23 @@ public class BoardController {
 	
 	//page
 	@GetMapping("/list")
-	public String list(Model model) {
+	public String list(Model model, @PageableDefault(size = 2) Pageable pagable) {
 		
 		//1. get data from repository
-		List<ThymBoard> board = boardRepository.findAll();
+		//List<ThymBoard> board = boardRepository.findAll();
+		
+		//1-2. get pagable data
+		Page<ThymBoard> board = boardRepository.findAll(pagable);
+		
+		//1-2. check page data
+		//board.getTotalElements();
 		
 		//2. translate to model(thymeleaf component)
 		model.addAttribute("boards", board);
+		
+		//3. set page attributes
+		model.addAttribute("startPage" , 0);
+		model.addAttribute("endPage", board.getTotalPages()-1);
 		
 		return "board/list";
 	}
