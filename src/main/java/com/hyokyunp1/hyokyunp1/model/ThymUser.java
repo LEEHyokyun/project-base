@@ -43,5 +43,6 @@ public class ThymUser {
 	private List<ThymRole> roles = new ArrayList<ThymRole>();
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<ThymBoard> boards = new ArrayList<>();
 }

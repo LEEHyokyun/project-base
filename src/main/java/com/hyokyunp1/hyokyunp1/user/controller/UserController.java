@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hyokyunp1.hyokyunp1.model.QThymUser;
 import com.hyokyunp1.hyokyunp1.model.ThymUser;
 import com.hyokyunp1.hyokyunp1.repository.UserRepository;
+import com.querydsl.core.types.Predicate;
 
 @RestController
 @RequestMapping("/api")
@@ -26,8 +28,23 @@ class UserController {
 
 
   @GetMapping("/users")
-  List<ThymUser> all() {
-	  return repository.findAll();
+  Iterable<ThymUser> all(@RequestParam(required = false) String method, String username) {
+	  //various searching ways by "method parameter"
+	  Iterable<ThymUser> users = repository.findAll();
+	  
+	  if("query".equals(method)) {
+		  users = repository.findWithUsername(username);
+	  }else if("nativeQuery".equals(method)) {
+		  users = repository.findWithUsernameNativeQuery(username);
+	  }else if("queryDsl".equals(method)) {
+		  QThymUser user = QThymUser.thymUser;
+		  Predicate predicate = user.username.contains(username);
+		  
+		  users = repository.findAll(predicate);
+	  }else if("queryDslCustom".equals(method)) {
+		  users = repository.findByUsernameCustomizedQuery(username);
+	  }
+	  return users;
   }
 
   @PostMapping("/users")
