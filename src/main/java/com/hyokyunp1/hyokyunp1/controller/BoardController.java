@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hyokyunp1.hyokyunp1.model.ThymBoard;
 import com.hyokyunp1.hyokyunp1.repository.BoardRepository;
+import com.hyokyunp1.hyokyunp1.service.BoardService;
 
 @Controller
 @RequestMapping("/board")
@@ -26,6 +28,9 @@ public class BoardController {
 	 * */
 	@Autowired
 	private BoardRepository boardRepository;
+	
+	@Autowired
+	private BoardService boardService;
 	
 	//page
 	@GetMapping("/list")
@@ -67,10 +72,16 @@ public class BoardController {
 		return "board/form";
 	}
 	
+	//add Many To One Related data (*user info at spring security authentication)
 	@PostMapping("/form")
-	public String boardSubmit(@ModelAttribute ThymBoard board) {
+	public String boardSubmit(@ModelAttribute ThymBoard board, Authentication authentication) {
+		//add data with authentication
+		//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		
 		//insert(without pk) or update(with pk)
-		boardRepository.save(board);
+		boardService.save(authentication.getName(), board);
+		//boardRepository.save(board);
 		
 		/*
 		 * redirect board list page

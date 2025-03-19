@@ -74,7 +74,7 @@
 			  <!--<input type="hidden" th:field="*{id}">-->
   		      <td th:text="${boardItem.id}">id</td>
   		      <td><a th:text="${boardItem.title}" th:href="@{/board/form(id=${boardItem.id})}">title</a></td>
-  		      <td>LEE HYO KYUN</td>
+  		      <td th:text="${boardItem.user.username}">USER NAME</td>
   		    </tr>
   		  </tbody>
   		</table>

@@ -3,6 +3,9 @@ package com.hyokyunp1.hyokyunp1.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Entity
@@ -37,4 +41,7 @@ public class ThymUser {
 			inverseJoinColumns = @JoinColumn(name= "ROLE_ID")
 			)
 	private List<ThymRole> roles = new ArrayList<ThymRole>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<ThymBoard> boards = new ArrayList<>();
 }
