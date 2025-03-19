@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hyokyunp1.hyokyunp1.mapper.UserMapper;
 import com.hyokyunp1.hyokyunp1.model.QThymUser;
 import com.hyokyunp1.hyokyunp1.model.ThymUser;
 import com.hyokyunp1.hyokyunp1.repository.UserRepository;
@@ -26,6 +27,8 @@ class UserController {
   @Autowired
   private UserRepository repository;
 
+  @Autowired
+  private UserMapper userMapper;
 
   @GetMapping("/users")
   Iterable<ThymUser> all(@RequestParam(required = false) String method, String username) {
@@ -43,6 +46,8 @@ class UserController {
 		  users = repository.findAll(predicate);
 	  }else if("queryDslCustom".equals(method)) {
 		  users = repository.findByUsernameCustomizedQuery(username);
+	  }else if("myBatis".equals(method)) {
+		  users = userMapper.getUsers(username);
 	  }
 	  return users;
   }
